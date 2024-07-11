@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Requirements Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        ol {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Functional Requirements Analysis</h1>
+
+    <h2>Front-End App Requirements:</h2>
+
+    <ol>
+        <li>
+            <strong>Ongoing Current Job Details Access:</strong>
+            <ul>
+                <li>Ensure that details of the current job are always accessible.</li>
+                <li>Service can only be activated when the current job is started using a start button.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Automatic Resume on Other Devices:</strong>
+            <ul>
+                <li>Implement functionality to resume the service automatically on other devices if there was already an ongoing job.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Context for Location State Management:</strong>
+            <ul>
+                <li>Maintain a context to manage the state of location data for shipment points of the current job.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Handling Previous Updates:</strong>
+            <ul>
+                <li>Utilize dedicated storage or flags from the backend to track previous updates (e.g., <code>hasDriverArrived</code>) to avoid redundant logic execution.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Pull-to-Refresh Feature:</strong>
+            <ul>
+                <li>Implement a pull-to-refresh feature or hooks to keep track of current job detail updates, if any.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Back-End Requirements:</h2>
+
+    <ol>
+        <li>
+            <strong>API Endpoint for Geofence Updates:</strong>
+            <ul>
+                <li>Implement an API endpoint:</li>
+                <li><strong>Endpoint:</strong> <code>/driver-status</code></li>
+                <li><strong>Method:</strong> <code>POST</code></li>
+                <li><strong>Payload:</strong>
+                    <pre>
+{
+  "driverId": "driver123",
+  "shipmentId": "shipment456",
+  "location": {
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  "status": "arrived",
+  "timestamp": "2023-07-11T15:03:00Z"
+}
+                    </pre>
+                </li>
+                <li>Validate the <code>status</code> values against predefined values.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Predefined Status Values:</strong>
+            <ul>
+                <li>Define and validate the status values:</li>
+                <li><code>En-route, Arriving_pickup, Arrived_pickup, Arriving_deliver, Arrived_deliver, Waiting, Paused, Completed</code></li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Handling High Volume of Geofence Updates:</strong>
+            <ul>
+                <li>Ensure backend infrastructure can handle a high volume of geofence updates efficiently and reliably.</li>
+            </ul>
+        </li>
+    </ol>
+
+</body>
+</html>
